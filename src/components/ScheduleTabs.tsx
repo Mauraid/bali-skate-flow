@@ -187,7 +187,7 @@ export const ScheduleTabs = () => {
       </div>
 
       <Tabs defaultValue="icp" className="space-y-8">
-        <TabsList className="grid w-full grid-cols-3 lg:max-w-lg mx-auto bg-card shadow-elegant border">
+        <TabsList className="grid w-full grid-cols-3 lg:max-w-2xl mx-auto bg-card shadow-elegant border h-14">
           {Object.entries(scheduleData).map(([key, schedule]) => {
             const Icon = schedule.icon;
             return (
@@ -195,13 +195,16 @@ export const ScheduleTabs = () => {
                 key={key} 
                 value={key}
                 className={cn(
-                  "flex items-center gap-2 data-[state=active]:bg-gradient-primary",
-                  "data-[state=active]:text-primary-foreground transition-all duration-300"
+                  "flex items-center gap-2 h-12 px-4 font-medium transition-all duration-300",
+                  "text-muted-foreground border border-transparent rounded-lg",
+                  "hover:text-foreground hover:bg-muted/50",
+                  "data-[state=active]:bg-gradient-primary data-[state=active]:text-primary-foreground",
+                  "data-[state=active]:border-primary/20 data-[state=active]:shadow-primary"
                 )}
               >
                 <Icon className="w-4 h-4" />
-                <span className="hidden sm:inline">{schedule.title}</span>
-                <span className="sm:hidden">{schedule.badge}</span>
+                <span className="hidden sm:inline font-semibold">{schedule.title}</span>
+                <span className="sm:hidden font-semibold">{schedule.badge}</span>
               </TabsTrigger>
             );
           })}
