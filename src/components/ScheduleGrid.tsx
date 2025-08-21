@@ -43,24 +43,8 @@ const getTypeColor = (type: Session['type']) => {
 };
 
 const getTypeIcon = (type: Session['type']) => {
-  switch (type) {
-    case 'warmup':
-      return '🧘‍♀️';
-    case 'technique':
-      return '🛼';
-    case 'learning':
-      return '📚';
-    case 'break':
-      return '🍽️';
-    case 'social':
-      return '🎉';
-    case 'adventure':
-      return '🌅';
-    case 'activity':
-      return '🎯';
-    default:
-      return '📅';
-  }
+  // Icons removed for cleaner interface
+  return null;
 };
 
 const SessionCard = ({ session, isExpanded, onToggle }: { 
@@ -89,7 +73,6 @@ const SessionCard = ({ session, isExpanded, onToggle }: {
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 flex-1">
-            <div className="text-xl">{getTypeIcon(session.type)}</div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">
