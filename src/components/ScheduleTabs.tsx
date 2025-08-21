@@ -1,13 +1,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Users, Trophy } from "lucide-react";
+import { Calendar, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScheduleGrid } from "./ScheduleGrid";
 
 const scheduleData = {
   icp: {
     title: "ICP Certification",
-    icon: Trophy,
+    icon: Calendar,
     description: "4-day intensive certification program",
     dates: "07-10 December 2025",
     badge: "Certification",
