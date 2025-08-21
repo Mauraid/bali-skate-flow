@@ -187,7 +187,7 @@ export const ScheduleTabs = () => {
       </div>
 
       <Tabs defaultValue="icp" className="space-y-8">
-        <TabsList className="grid w-full grid-cols-3 lg:max-w-2xl mx-auto bg-card shadow-elegant border h-14">
+        <TabsList className="grid w-full grid-cols-3 lg:max-w-2xl mx-auto bg-muted/30 shadow-elegant border h-14 p-1">
           {Object.entries(scheduleData).map(([key, schedule]) => {
             const Icon = schedule.icon;
             return (
@@ -196,8 +196,9 @@ export const ScheduleTabs = () => {
                 value={key}
                 className={cn(
                   "flex items-center gap-2 h-12 px-4 font-medium transition-all duration-300",
-                  "text-muted-foreground border border-transparent rounded-lg",
-                  "hover:text-foreground hover:bg-muted/50",
+                  "text-foreground bg-background/50 border border-border/50 rounded-lg",
+                  "hover:text-foreground hover:bg-background hover:border-border",
+                  "hover:shadow-sm",
                   "data-[state=active]:bg-gradient-primary data-[state=active]:text-primary-foreground",
                   "data-[state=active]:border-primary/20 data-[state=active]:shadow-primary"
                 )}
