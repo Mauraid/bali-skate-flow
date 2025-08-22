@@ -1,8 +1,8 @@
 interface ScheduleSession {
   time: string;
   instructor: string;
-  name: string;
-  type: 'theory' | 'practical' | 'assessment' | 'break';
+  session: string; // Changed from 'name' to 'session' to match ScheduleGrid
+  type: 'warmup' | 'technique' | 'learning' | 'break' | 'social' | 'adventure' | 'activity';
 }
 
 interface DaySession {
@@ -78,8 +78,10 @@ export class GoogleSheetsService {
       const date = values[0];
       const time = values[1];
       const instructor = values[2];
-      const name = values[3];
-      const type = this.determineSessionType(name);
+      const session = values[3]; // Changed from 'name' to 'session'
+      const type = this.determineSessionType(session);
+      
+      if (!date || date === '') continue; // Skip empty dates
       
       if (!sessionsByDate[date]) {
         sessionsByDate[date] = [];
@@ -88,7 +90,7 @@ export class GoogleSheetsService {
       sessionsByDate[date].push({
         time,
         instructor,
-        name,
+        session, // Changed from 'name' to 'session'
         type
       });
     }
@@ -136,14 +138,20 @@ export class GoogleSheetsService {
   private static determineSessionType(sessionName: string): ScheduleSession['type'] {
     const name = sessionName.toLowerCase();
     
-    if (name.includes('break') || name.includes('lunch') || name.includes('coffee')) {
+    if (name.includes('lunch') || name.includes('break') || name.includes('coffee') || name.includes('meal')) {
       return 'break';
-    } else if (name.includes('assessment') || name.includes('test') || name.includes('exam')) {
-      return 'assessment';
-    } else if (name.includes('theory') || name.includes('lecture') || name.includes('presentation')) {
-      return 'theory';
+    } else if (name.includes('yoga') || name.includes('warm') || name.includes('stretch')) {
+      return 'warmup';
+    } else if (name.includes('edge') || name.includes('fundamental') || name.includes('technique') || name.includes('speed')) {
+      return 'technique';
+    } else if (name.includes('obstacle') || name.includes('cross') || name.includes('skate')) {
+      return 'learning';
+    } else if (name.includes('gala') || name.includes('evening') || name.includes('culture') || name.includes('final') || name.includes('goodbye')) {
+      return 'social';
+    } else if (name.includes('beach') || name.includes('city') || name.includes('around')) {
+      return 'adventure';
     } else {
-      return 'practical';
+      return 'activity';
     }
   }
 }

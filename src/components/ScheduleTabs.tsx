@@ -17,6 +17,7 @@ export const ScheduleTabs = () => {
         setLoading(true);
         const data = await GoogleSheetsService.fetchAllSchedules();
         setScheduleData(data);
+        console.log('Schedule data loaded:', data);
         setError(null);
       } catch (err) {
         setError('Failed to load schedule data from Google Sheets');
