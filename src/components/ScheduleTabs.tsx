@@ -1,180 +1,71 @@
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Users } from "lucide-react";
+import { Calendar, Users, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScheduleGrid } from "./ScheduleGrid";
-
-const scheduleData = {
-  icp: {
-    title: "ICP Certification",
-    icon: Calendar,
-    description: "4-day intensive certification program",
-    dates: "07-10 December 2025",
-    badge: "Certification",
-    sessions: [
-      {
-        date: "07.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const },
-          { time: "19:00", instructor: "All", session: "Evening Welcome Meal", type: "social" as const }
-        ]
-      },
-      {
-        date: "08.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const }
-        ]
-      },
-      {
-        date: "09.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const }
-        ]
-      },
-      {
-        date: "10.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const },
-          { time: "19:00", instructor: "All", session: "Gala", type: "social" as const },
-          { time: "", instructor: "", session: "Culture Show", type: "social" as const }
-        ]
-      }
-    ]
-  },
-  path1: {
-    title: "Path 1 Schedule",
-    icon: Calendar,
-    description: "4-day adventure program",
-    dates: "10-13 December 2025",
-    badge: "Adventure",
-    sessions: [
-      {
-        date: "10.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const },
-          { time: "19:00", instructor: "All", session: "Gala", type: "social" as const },
-          { time: "", instructor: "", session: "Culture Show", type: "social" as const }
-        ]
-      },
-      {
-        date: "11.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const },
-          { time: "20:00", instructor: "", session: "Evening Skate Around the City", type: "adventure" as const }
-        ]
-      },
-      {
-        date: "12.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const },
-          { time: "17:00-17:30", instructor: "All", session: "Passport Stamp Collecting", type: "activity" as const },
-          { time: "20:00", instructor: "", session: "Final Evening Together", type: "social" as const }
-        ]
-      },
-      {
-        date: "13.12.2025",
-        sessions: [
-          { time: "9:00-11:00", instructor: "All", session: "Morning Beach Skate", type: "adventure" as const },
-          { time: "10:00-11:00", instructor: "All", session: "Final Goodbyes/Photos", type: "social" as const }
-        ]
-      }
-    ]
-  },
-  kids: {
-    title: "Kids Path Schedule",
-    icon: Users,
-    description: "3-day kids program",
-    dates: "10-12 December 2025",
-    badge: "Kids",
-    sessions: [
-      {
-        date: "10.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const },
-          { time: "19:00", instructor: "All", session: "Gala", type: "social" as const },
-          { time: "", instructor: "", session: "Culture Show", type: "social" as const }
-        ]
-      },
-      {
-        date: "11.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const },
-          { time: "20:00", instructor: "", session: "Evening Skate Around the City", type: "adventure" as const }
-        ]
-      },
-      {
-        date: "12.12.2025",
-        sessions: [
-          { time: "9:00-9:45", instructor: "Kris", session: "Mobile Yoga", type: "warmup" as const },
-          { time: "10:00-11:00", instructor: "Si", session: "Urban Obstacles", type: "technique" as const },
-          { time: "11:15-12:00", instructor: "Tomasz", session: "Skate Cross", type: "technique" as const },
-          { time: "12:00-13:30", instructor: "", session: "Lunch", type: "break" as const },
-          { time: "13:30-14:30", instructor: "Mike", session: "Edges", type: "technique" as const },
-          { time: "14:45-15:45", instructor: "Mauraid", session: "Fundamentals", type: "learning" as const },
-          { time: "16:00-17:00", instructor: "Tomy", session: "Speed Skating", type: "technique" as const },
-          { time: "17:00-17:30", instructor: "All", session: "Passport Stamp Collecting", type: "activity" as const },
-          { time: "20:00", instructor: "", session: "Final Evening Together", type: "social" as const }
-        ]
-      }
-    ]
-  }
-};
+import { GoogleSheetsService } from "@/services/GoogleSheetsService";
 
 export const ScheduleTabs = () => {
+  const [scheduleData, setScheduleData] = useState<Record<string, any>>({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadSchedules = async () => {
+      try {
+        setLoading(true);
+        const data = await GoogleSheetsService.fetchAllSchedules();
+        setScheduleData(data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load schedule data from Google Sheets');
+        console.error('Error loading schedules:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSchedules();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full max-w-7xl mx-auto p-6">
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4">
+            Skate Camp Bali 2025
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Discover the world on skates! Explore the culture, food and wonderful world of Bali.
+          </p>
+        </div>
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin mr-2" />
+          <span>Loading schedules from Google Sheets...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full max-w-7xl mx-auto p-6">
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4">
+            Skate Camp Bali 2025
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Discover the world on skates! Explore the culture, food and wonderful world of Bali.
+          </p>
+        </div>
+        <div className="text-center py-12 text-destructive">
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-7xl mx-auto p-6">
       <div className="mb-8 text-center">
@@ -188,8 +79,8 @@ export const ScheduleTabs = () => {
 
       <Tabs defaultValue="icp" className="space-y-8">
         <TabsList className="grid w-full grid-cols-3 lg:max-w-2xl mx-auto bg-muted/30 shadow-elegant border h-14 p-1">
-          {Object.entries(scheduleData).map(([key, schedule]) => {
-            const Icon = schedule.icon;
+        {Object.entries(scheduleData).map(([key, schedule]) => {
+          const Icon = Calendar;
             return (
               <TabsTrigger 
                 key={key} 
@@ -217,7 +108,7 @@ export const ScheduleTabs = () => {
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
                 <div className="flex items-center gap-4 mb-4 md:mb-0">
                   <div className="p-3 rounded-lg bg-gradient-primary">
-                    <schedule.icon className="w-6 h-6 text-primary-foreground" />
+                    <Calendar className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-foreground">{schedule.title}</h2>
