@@ -33,7 +33,7 @@ export const ScheduleTabs = () => {
     return (
       <div className="w-full max-w-7xl mx-auto p-6">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
             Skate Camp Bali 2025
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -52,7 +52,7 @@ export const ScheduleTabs = () => {
     return (
       <div className="w-full max-w-7xl mx-auto p-6">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
             Skate Camp Bali 2025
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -69,7 +69,7 @@ export const ScheduleTabs = () => {
   return (
     <div className="w-full max-w-7xl mx-auto p-6">
       <div className="mb-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
           Skate Camp Bali 2025
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -90,7 +90,7 @@ export const ScheduleTabs = () => {
                   "text-foreground bg-background/50 border border-border/50 rounded-lg",
                   "hover:text-foreground hover:bg-background hover:border-border",
                   "hover:shadow-sm",
-                  "data-[state=active]:bg-gradient-primary data-[state=active]:text-primary-foreground",
+                  "data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-primary-foreground",
                   "data-[state=active]:border-primary/20 data-[state=active]:shadow-primary"
                 )}
               >
@@ -107,7 +107,7 @@ export const ScheduleTabs = () => {
             <div className="bg-card rounded-xl p-6 shadow-elegant border">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
                 <div className="flex items-center gap-4 mb-4 md:mb-0">
-                  <div className="p-3 rounded-lg bg-gradient-primary">
+                  <div className="p-3 rounded-lg bg-gradient-to-r from-primary to-primary-glow">
                     <Calendar className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
